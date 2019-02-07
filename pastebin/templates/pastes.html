@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block page_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css">
+{% endblock %}
+
+{% block page_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            hljs.initHighlightingOnLoad();
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+            <div class="col-lg-9 my-auto">
+                <div class="header-content mx-auto">
+                    <h1 class="mb-5">
+                        {{ paste.title }}
+                    </h1>
+
+                    <pre><code>{{ paste.paste }}</code></pre>
+
+                </div>
+            </div>
+            <div class="col-lg-3 my-auto">
+                <div class="pastes">
+                    <h3>
+                        Public Pastes
+                    </h3>
+                    {% for item in last_pasts %}
+                    <a href="{{ url_for('Index.pastes', link=item.link) }}" class="paste">
+                        <p class="paste_title">{{ item.title }}</p>
+                        <span class="paste_date">{{ item.date }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+{% endblock %}

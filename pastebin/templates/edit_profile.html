@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 my-auto">
+        {% block content %}
+            <h1>Edit Profile</h1>
+            {#    <a href="{{ url_for('security.change_password') }}">Zzazaza</a>#}
+            <form action="" method="post" name="edit" class="send-form"  enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    {{ form.name.label }}
+                    {{ form.name(size = 24) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.api_key.label }}
+                    {{ form.api_key }}
+                    <button class="generate_api">
+                        generate
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    {{ form.photo.label }}
+                    {{ form.photo }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn") }}
+                </div>
+
+            </form>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename="js/generate_api.js") }}"></script>
+{% endblock %}

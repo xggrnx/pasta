@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-auto">
+        <div class="send-form clearfix">
+            <div class="ava">
+                <img src="{% if user.photo %}{{ url_for('static', filename='uploads/' + user.photo) }}{% else %}{{ user.gravatar(128) }}{% endif %}">
+            </div>
+            <div class="send-form_wrapper">
+                {% if current_user.is_authenticated %}
+                    <h3>
+                        Name: <b>{{ user.name }}</b>
+                        <small><a href="{{ url_for('User.edit_profile') }}">Edit</a></small>
+                    </h3>
+                {% endif %}
+                <p>
+                    Api Key: <b>{{ user.api_key }} </b>
+                </p>
+                <p>
+                    <a href="{{ url_for('security.change_password') }}">Change password</a>
+                </p>
+                <hr>
+                <h3>
+                    Recent posts:
+                </h3>
+                {% for item in my_pasts %}
+                    <a href="{{ url_for('Index.pastes', link=item.link) }}" class="paste">
+                        <p class="paste_title">{{ item.title }}</p>
+                        <span class="paste_date">{{ item.date.strftime('%H:%M:%S') }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

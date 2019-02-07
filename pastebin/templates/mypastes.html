@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="col-lg-9 my-auto">
+        <div class="header-content mx-auto">
+
+            <h1 class="mb-5">
+                My pastes
+            </h1>
+
+            <form action="" method="get" class="send-form search-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="">Title:</label>
+                            {{ form.title(placeholder=request.args.get('title')) }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Syntax:</label>
+                            {{ form.code_id }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-checkbox">
+                                <label for="private_msg">Paste Exposure:</label>
+                                {{ form.is_private() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form.submit(class="btn") }}
+
+            </form>
+
+            {% for item in my_pasts %}
+                <a href="{{ url_for('Index.pastes', link=item.link) }}" class="paste">
+                    <p class="paste_title">{{ item.title }}</p>
+                    <span class="paste_date">{{ item.date }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-3 my-auto">
+        <div class="pastes">
+            <h3>
+                Public Pastes
+            </h3>
+
+            {% for item in last_pasts %}
+                <a href="{{ url_for('Index.pastes', link=item.link) }}" class="paste">
+                    <p class="paste_title">{{ item.title }}</p>
+                    <span class="paste_date">{{ item.date.strftime('%H:%M:%S') }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
